@@ -100,6 +100,18 @@ extern __typeof (memmem) __memmem;
 libc_hidden_proto (__memmem)
 libc_hidden_proto (__ffs)
 
+/* explicit_bzero is used in libcrypt.  */
+extern __typeof (explicit_bzero) __explicit_bzero;
+extern __typeof (explicit_bzero) __internal_explicit_bzero;
+libc_hidden_proto (__internal_explicit_bzero)
+extern __typeof (__glibc_read_memory) __internal_glibc_read_memory;
+libc_hidden_proto (__internal_glibc_read_memory)
+/* Honor string[23].h overrides when present.  */
+#ifdef explicit_bzero
+# define __explicit_bzero(s,n) explicit_bzero (s,n)
+# define __internal_explicit_bzero(s,n) explicit_bzero (s,n)
+#endif
+
 libc_hidden_builtin_proto (memchr)
 libc_hidden_builtin_proto (memcpy)
 libc_hidden_builtin_proto (mempcpy)

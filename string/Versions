@@ -82,4 +82,14 @@ libc {
   }
   GLIBC_2.24 {
   }
+  GLIBC_2.25 {
+    # used by inlines in bits/string2.h and bits/string3.h
+    __glibc_read_memory;
+
+    # used by libcrypt
+    __explicit_bzero;
+
+    # e*
+    explicit_bzero;
+  }
 }
