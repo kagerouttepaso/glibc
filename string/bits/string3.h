@@ -42,6 +42,7 @@ __warndecl (__warn_memset_zero_len,
 # ifdef __USE_MISC
 #  undef bcopy
 #  undef bzero
+#  undef explicit_bzero
 # endif
 #endif
 
@@ -101,6 +102,13 @@ __fortify_function void
 __NTH (bzero (void *__dest, size_t __len))
 {
   (void) __builtin___memset_chk (__dest, '\0', __len, __bos0 (__dest));
+}
+
+__fortify_function void
+__NTH (explicit_bzero (void *__dest, size_t __len))
+{
+  (void) __builtin___memset_chk (__dest, '\0', __len, __bos0 (__dest));
+  __glibc_read_memory (__dest, __len);
 }
 #endif
 
